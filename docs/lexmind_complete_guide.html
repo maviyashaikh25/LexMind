@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LexMind — Complete Step-by-Step Build Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e0d;
+  --bg: #f7f6f2;
+  --card: #ffffff;
+  --border: #e2dfd6;
+  --muted: #6b6860;
+  --accent: #b5460f;
+  --accent-bg: #fff4ef;
+  --blue: #1a3a5c;
+  --blue-bg: #eaf1fb;
+  --green: #0a4535;
+  --green-bg: #e2f5ee;
+  --purple: #2e2480;
+  --purple-bg: #eeedfe;
+  --amber: #5c3306;
+  --amber-bg: #fcebd5;
+  --code-bg: #1b1b18;
+  --code-text: #e8e4d8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 5rem;
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* HEADER */
+.doc-header {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+h1 {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+h1 em { color: var(--accent); font-style: normal; }
+.doc-sub { font-size: 14px; color: var(--muted); max-width: 600px; }
+.tag-strip { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+.tag {
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+}
+.t-ml  { background: var(--blue-bg);   color: var(--blue); }
+.t-dl  { background: var(--purple-bg); color: var(--purple); }
+.t-nlp { background: var(--green-bg);  color: var(--green); }
+.t-rag { background: var(--amber-bg);  color: var(--amber); }
+.t-n   { background: #f1efe8;          color: #444; }
+
+/* TOC */
+.toc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2.5rem;
+}
+.toc-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.75rem; }
+.toc-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+.toc-list li a {
+  font-size: 13px;
+  color: var(--blue);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.toc-list li a:hover { text-decoration: underline; }
+.toc-num { font-size: 10px; font-weight: 600; color: var(--muted); min-width: 18px; }
+
+/* STEP SECTIONS */
+.step-section { margin-bottom: 3rem; }
+.step-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.step-num-badge {
+  background: var(--ink);
+  color: #f7f6f2;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+.step-meta {}
+.step-phase { font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+h2 { font-size: 22px; font-weight: 600; color: var(--ink); margin: 0; }
+
+h3 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 1.5rem 0 0.6rem;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+}
+p { margin-bottom: 0.7rem; color: #2e2c29; font-size: 14px; }
+
+/* CODE */
+.code-block {
+  background: var(--code-bg);
+  border-radius: 8px;
+  margin: 0.7rem 0 1.2rem;
+  overflow: hidden;
+}
+.code-header {
+  background: #2a2a26;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.code-lang { font-size: 11px; font-weight: 500; color: #9b9888; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+.code-file { font-size: 11px; color: #6b6858; font-family: 'JetBrains Mono', monospace; }
+pre {
+  background: transparent;
+  color: var(--code-text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  margin: 0;
+}
+.kw  { color: #f4a35b; }
+.str { color: #8fcfa8; }
+.cm  { color: #6b6858; font-style: italic; }
+.fn  { color: #7eb8f5; }
+.num { color: #d4a5f5; }
+.dec { color: #f9cb42; }
+
+/* DATASET TABLE */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 0.7rem 0 1.2rem; }
+thead tr { background: var(--ink); }
+th {
+  color: #f7f6f2;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 9px 12px;
+  text-align: left;
+}
+td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; color: #2e2c29; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f0ece3; }
+td:first-child { font-weight: 500; color: var(--ink); }
+td a { color: var(--blue); text-decoration: none; font-weight: 500; }
+td a:hover { text-decoration: underline; }
+.status-tag {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.free { background: var(--green-bg); color: var(--green); }
+.api  { background: var(--blue-bg);  color: var(--blue); }
+.hf   { background: var(--purple-bg); color: var(--purple); }
+
+/* INFO BOXES */
+.info-box {
+  border-left: 3px solid;
+  padding: 0.8rem 1rem;
+  border-radius: 0 6px 6px 0;
+  margin: 0.8rem 0 1.1rem;
+  font-size: 13.5px;
+}
+.info-tip  { border-color: var(--accent); background: var(--accent-bg); color: #3a2010; }
+.info-note { border-color: #1a3a5c; background: var(--blue-bg); color: #0c2240; }
+.info-warn { border-color: #854f0b; background: var(--amber-bg); color: var(--amber); }
+.info-box strong { display: block; margin-bottom: 3px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; }
+
+/* FILE TREE */
+.file-tree {
+  background: var(--code-bg);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  color: var(--code-text);
+  line-height: 1.9;
+  margin: 0.7rem 0 1.2rem;
+}
+.ft-dir  { color: #7eb8f5; }
+.ft-file { color: #8fcfa8; }
+.ft-cm   { color: #6b6858; font-style: italic; }
+
+/* CARDS GRID */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 0.7rem 0 1.2rem; }
+.mini-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+.mc-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 4px; }
+.mc-val   { font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.mc-sub   { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+/* FINAL CHECKLIST */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #2e2c29;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+.check-icon { color: var(--green); font-size: 15px; margin-top: 1px; flex-shrink: 0; }
+.check-text strong { color: var(--ink); }
+
+/* FOOTER */
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 11.5px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+code {
+  background: #ede9e0;
+  color: var(--accent);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header class="doc-header">
+  <p class="eyebrow">Complete Build Guide · LegalTech AI · ML + DL + NLP + RAG</p>
+  <h1><em>LexMind</em> — Step-by-Step Build Guide</h1>
+  <p class="doc-sub">Every step, every file, every line of code. Datasets linked. Zero gaps.</p>
+  <div class="tag-strip">
+    <span class="tag t-ml">XGBoost · SHAP</span>
+    <span class="tag t-dl">BART · InLegalBERT</span>
+    <span class="tag t-nlp">spaCy · NER</span>
+    <span class="tag t-rag">LangChain · Pinecone</span>
+    <span class="tag t-n">FastAPI · Streamlit · Docker</span>
+  </div>
+</header>
+
+<!-- ─── TOC ─── -->
+<div class="toc">
+  <p class="toc-title">Table of Contents</p>
+  <ul class="toc-list">
+    <li><a href="#s0"><span class="toc-num">00</span> Project setup &amp; folder structure</a></li>
+    <li><a href="#s1"><span class="toc-num">01</span> Datasets — links &amp; download scripts</a></li>
+    <li><a href="#s2"><span class="toc-num">02</span> Data preprocessing pipeline</a></li>
+    <li><a href="#s3"><span class="toc-num">03</span> NLP — spaCy NER training</a></li>
+    <li><a href="#s4"><span class="toc-num">04</span> DL — BART summarization fine-tune</a></li>
+    <li><a href="#s5"><span class="toc-num">05</span> ML — XGBoost outcome predictor</a></li>
+    <li><a href="#s6"><span class="toc-num">06</span> RAG pipeline — embed, index, retrieve</a></li>
+    <li><a href="#s7"><span class="toc-num">07</span> FastAPI backend</a></li>
+    <li><a href="#s8"><span class="toc-num">08</span> Streamlit frontend</a></li>
+    <li><a href="#s9"><span class="toc-num">09</span> Docker &amp; deployment</a></li>
+    <li><a href="#s10"><span class="toc-num">10</span> Evaluation &amp; metrics</a></li>
+    <li><a href="#s11"><span class="toc-num">11</span> Final checklist</a></li>
+  </ul>
+</div>
+
+<!-- ═══════ STEP 0 ═══════ -->
+<section class="step-section" id="s0">
+  <div class="step-header">
+    <div class="step-num-badge">00</div>
+    <div class="step-meta">
+      <p class="step-phase">Getting started</p>
+      <h2>Project setup &amp; folder structure</h2>
+    </div>
+  </div>
+
+  <h3>Environment setup</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">bash</span><span class="code-file">terminal</span></div>
+<pre>
+<span class="cm"># 1. Create project & virtual environment</span>
+mkdir lexmind && cd lexmind
+python -m venv venv
+source venv/bin/activate       <span class="cm"># Windows: venv\Scripts\activate</span>
+
+<span class="cm"># 2. Install all dependencies</span>
+pip install fastapi uvicorn streamlit
+pip install transformers datasets torch accelerate
+pip install spacy langchain langchain-community
+pip install xgboost shap scikit-learn pandas numpy
+pip install pinecone-client sentence-transformers
+pip install python-dotenv requests beautifulsoup4
+pip install langchain-anthropic langchain-huggingface
+
+<span class="cm"># 3. Download spaCy base model</span>
+python -m spacy download en_core_web_sm
+</pre>
+  </div>
+
+  <h3>Folder structure</h3>
+  <div class="file-tree">
+<span class="ft-dir">lexmind/</span>
+├── <span class="ft-dir">data/</span>
+│   ├── <span class="ft-dir">raw/</span>          <span class="ft-cm"># scraped case JSONs</span>
+│   ├── <span class="ft-dir">processed/</span>    <span class="ft-cm"># cleaned + chunked</span>
+│   ├── <span class="ft-dir">ner_annotations/</span> <span class="ft-cm"># Label Studio exports</span>
+│   └── <span class="ft-file">cases_metadata.csv</span>  <span class="ft-cm"># for ML features</span>
+├── <span class="ft-dir">models/</span>
+│   ├── <span class="ft-dir">legal_ner/</span>        <span class="ft-cm"># trained spaCy model</span>
+│   ├── <span class="ft-dir">legal_summarizer/</span> <span class="ft-cm"># fine-tuned BART</span>
+│   └── <span class="ft-file">outcome_xgb.json</span>  <span class="ft-cm"># XGBoost model</span>
+├── <span class="ft-dir">src/</span>
+│   ├── <span class="ft-file">scraper.py</span>
+│   ├── <span class="ft-file">preprocess.py</span>
+│   ├── <span class="ft-file">train_ner.py</span>
+│   ├── <span class="ft-file">train_summarizer.py</span>
+│   ├── <span class="ft-file">train_outcome.py</span>
+│   ├── <span class="ft-file">embed_corpus.py</span>
+│   └── <span class="ft-file">rag_chain.py</span>
+├── <span class="ft-file">main.py</span>             <span class="ft-cm"># FastAPI app</span>
+├── <span class="ft-file">app.py</span>              <span class="ft-cm"># Streamlit UI</span>
+├── <span class="ft-file">Dockerfile</span>
+├── <span class="ft-file">docker-compose.yml</span>
+├── <span class="ft-file">.env</span>                <span class="ft-cm"># API keys</span>
+└── <span class="ft-file">requirements.txt</span>
+  </div>
+
+  <h3>.env file</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">env</span><span class="code-file">.env</span></div>
+<pre>
+PINECONE_API_KEY=your_pinecone_key_here
+PINECONE_ENV=us-east1-gcp
+ANTHROPIC_API_KEY=your_anthropic_key_here
+INDIAN_KANOON_API_KEY=your_ik_key_here
+HF_TOKEN=your_huggingface_token_here
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 1 ═══════ -->
+<section class="step-section" id="s1">
+  <div class="step-header">
+    <div class="step-num-badge">01</div>
+    <div class="step-meta">
+      <p class="step-phase">Data collection</p>
+      <h2>Datasets — all links &amp; download scripts</h2>
+    </div>
+  </div>
+
+  <h3>Primary datasets</h3>
+  <table>
+    <thead>
+      <tr><th>Dataset</th><th>What it contains</th><th>Used for</th><th>Access</th><th>Link</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Indian Kanoon API</td>
+        <td>6M+ Indian court judgments (SC, HC, District)</td>
+        <td>RAG corpus, NER, ML training</td>
+        <td><span class="status-tag api">API Key</span></td>
+        <td><a href="https://api.indiankanoon.org" target="_blank">api.indiankanoon.org</a></td>
+      </tr>
+      <tr>
+        <td>ILSI Dataset</td>
+        <td>34k+ labeled Indian legal cases with outcomes</td>
+        <td>ML outcome prediction labels</td>
+        <td><span class="status-tag hf">HuggingFace</span></td>
+        <td><a href="https://huggingface.co/datasets/law-ai/ILSI" target="_blank">huggingface.co/datasets/law-ai/ILSI</a></td>
+      </tr>
+      <tr>
+        <td>InLegalNLP Corpus</td>
+        <td>Indian SC judgments + headnotes, NER annotations</td>
+        <td>BART summarization, NER, embeddings</td>
+        <td><span class="status-tag free">Free GitHub</span></td>
+        <td><a href="https://github.com/Legal-NLP-EkStep/legal_NLP" target="_blank">github.com/Legal-NLP-EkStep/legal_NLP</a></td>
+      </tr>
+      <tr>
+        <td>CUAD Dataset</td>
+        <td>510 annotated commercial contracts, 41 clause types</td>
+        <td>Contract clause extraction NLP</td>
+        <td><span class="status-tag hf">HuggingFace</span></td>
+        <td><a href="https://huggingface.co/datasets/theatticusproject/cuad" target="_blank">huggingface.co/datasets/theatticusproject/cuad</a></td>
+      </tr>
+      <tr>
+        <td>IndianLegalDocs</td>
+        <td>Structured Indian legal documents (FIR, chargesheets, bail orders)</td>
+        <td>NER fine-tuning, classification</td>
+        <td><span class="status-tag hf">HuggingFace</span></td>
+        <td><a href="https://huggingface.co/datasets/iiitnlp/Indian-Legal-NER" target="_blank">huggingface.co/datasets/iiitnlp/Indian-Legal-NER</a></td>
+      </tr>
+      <tr>
+        <td>Legal SumINDIA</td>
+        <td>Parallel corpus: full judgment ↔ summary pairs</td>
+        <td>BART fine-tuning (summarization)</td>
+        <td><span class="status-tag hf">HuggingFace</span></td>
+        <td><a href="https://huggingface.co/datasets/d0r1h/LegalSum" target="_blank">huggingface.co/datasets/d0r1h/LegalSum</a></td>
+      </tr>
+      <tr>
+        <td>CourtListener (US)</td>
+        <td>1M+ US court opinions, structured metadata</td>
+        <td>Alternative corpus for US law variant</td>
+        <td><span class="status-tag api">Free API</span></td>
+        <td><a href="https://www.courtlistener.com/api/" target="_blank">courtlistener.com/api</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Download script — HuggingFace datasets</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/download_datasets.py</span></div>
+<pre>
+<span class="kw">from</span> datasets <span class="kw">import</span> load_dataset
+<span class="kw">import</span> json, os
+
+os.makedirs(<span class="str">"data/raw"</span>, exist_ok=<span class="dec">True</span>)
+
+<span class="cm"># 1. ILSI — outcome-labeled cases</span>
+ilsi = load_dataset(<span class="str">"law-ai/ILSI"</span>)
+ilsi[<span class="str">"train"</span>].to_json(<span class="str">"data/raw/ilsi_train.jsonl"</span>)
+ilsi[<span class="str">"test"</span>].to_json(<span class="str">"data/raw/ilsi_test.jsonl"</span>)
+<span class="fn">print</span>(<span class="str">f"ILSI: {len(ilsi['train'])} train cases"</span>)
+
+<span class="cm"># 2. LegalSum — judgment + summary pairs for BART</span>
+legalsum = load_dataset(<span class="str">"d0r1h/LegalSum"</span>)
+legalsum[<span class="str">"train"</span>].to_json(<span class="str">"data/raw/legalsum_train.jsonl"</span>)
+<span class="fn">print</span>(<span class="str">f"LegalSum: {len(legalsum['train'])} pairs"</span>)
+
+<span class="cm"># 3. Indian Legal NER</span>
+ner_data = load_dataset(<span class="str">"iiitnlp/Indian-Legal-NER"</span>)
+ner_data[<span class="str">"train"</span>].to_json(<span class="str">"data/raw/ner_train.jsonl"</span>)
+<span class="fn">print</span>(<span class="str">f"NER: {len(ner_data['train'])} sentences"</span>)
+
+<span class="cm"># 4. CUAD contracts</span>
+cuad = load_dataset(<span class="str">"theatticusproject/cuad"</span>)
+cuad[<span class="str">"train"</span>].to_json(<span class="str">"data/raw/cuad_train.jsonl"</span>)
+<span class="fn">print</span>(<span class="str">f"CUAD: {len(cuad['train'])} contracts"</span>)
+</pre>
+  </div>
+
+  <h3>Indian Kanoon API scraper</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/scraper.py</span></div>
+<pre>
+<span class="kw">import</span> requests, json, time, os
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv(<span class="str">"INDIAN_KANOON_API_KEY"</span>)
+BASE_URL = <span class="str">"https://api.indiankanoon.org"</span>
+
+<span class="kw">def</span> <span class="fn">search_cases</span>(query: str, pages: int = <span class="num">50</span>) -> list:
+    <span class="str">"""Search and return case documents from Indian Kanoon."""</span>
+    headers = {<span class="str">"Authorization"</span>: <span class="str">f"Token {API_KEY}"</span>}
+    all_docs = []
+
+    <span class="kw">for</span> page <span class="kw">in</span> range(pages):
+        resp = requests.post(
+            <span class="str">f"{BASE_URL}/search/"</span>,
+            data={<span class="str">"formInput"</span>: query, <span class="str">"pagenum"</span>: page},
+            headers=headers, timeout=<span class="num">10</span>
+        )
+        <span class="kw">if</span> resp.status_code != <span class="num">200</span>:
+            <span class="fn">print</span>(<span class="str">f"Error page {page}: {resp.status_code}"</span>)
+            <span class="kw">break</span>
+        data = resp.json()
+        docs = data.get(<span class="str">"docs"</span>, [])
+        <span class="kw">if</span> <span class="kw">not</span> docs:
+            <span class="kw">break</span>
+        all_docs.extend(docs)
+        time.sleep(<span class="num">0.5</span>)   <span class="cm"># respect rate limit</span>
+
+    <span class="kw">return</span> all_docs
+
+<span class="kw">def</span> <span class="fn">fetch_full_doc</span>(doc_id: str) -> dict:
+    <span class="str">"""Fetch full text of a single judgment."""</span>
+    headers = {<span class="str">"Authorization"</span>: <span class="str">f"Token {API_KEY}"</span>}
+    resp = requests.post(
+        <span class="str">f"{BASE_URL}/doc/{doc_id}/"</span>,
+        headers=headers, timeout=<span class="num">15</span>
+    )
+    <span class="kw">return</span> resp.json() <span class="kw">if</span> resp.status_code == <span class="num">200</span> <span class="kw">else</span> {}
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    queries = [
+        <span class="str">"criminal appeal supreme court section 302"</span>,
+        <span class="str">"civil breach of contract high court"</span>,
+        <span class="str">"cheating fraud section 420 IPC"</span>,
+        <span class="str">"dowry death section 304B IPC"</span>,
+        <span class="str">"bail application criminal case"</span>,
+    ]
+
+    os.makedirs(<span class="str">"data/raw"</span>, exist_ok=<span class="dec">True</span>)
+    <span class="kw">for</span> q <span class="kw">in</span> queries:
+        <span class="fn">print</span>(<span class="str">f"Scraping: {q}"</span>)
+        docs = <span class="fn">search_cases</span>(q, pages=<span class="num">20</span>)
+        full_docs = []
+        <span class="kw">for</span> doc <span class="kw">in</span> docs[:<span class="num">10</span>]:  <span class="cm"># limit to 10 docs per query for demo</span>
+            doc_id = doc.get(<span class="str">"tid"</span>)
+            <span class="kw">if</span> doc_id:
+                full_text_data = <span class="fn">fetch_full_doc</span>(str(doc_id))
+                <span class="kw">if</span> full_text_data:
+                    doc[<span class="str">"doc"</span>] = full_text_data.get(<span class="str">"doc"</span>, <span class="str">""</span>)
+                    full_docs.append(doc)
+                time.sleep(<span class="num">0.5</span>)
+        fname = q.replace(<span class="str">" "</span>, <span class="str">"_"</span>)[:40]
+        <span class="kw">with</span> open(<span class="str">f"data/raw/{fname}.json"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
+            json.dump(full_docs, f, indent=<span class="num">2</span>)
+        <span class="fn">print</span>(<span class="str">f"  Saved {len(full_docs)} docs with text"</span>)
+</pre>
+  </div>
+
+  <div class="info-box info-note">
+    <strong>Getting API access</strong>
+    Register at <strong>indiankanoon.org</strong> → request API access via their contact form. Free tier gives 500 requests/day — enough for 10k cases. For the NER corpus, use <strong>github.com/Legal-NLP-EkStep</strong> directly — no sign-up needed.
+  </div>
+</section>
+
+<!-- ═══════ STEP 2 ═══════ -->
+<section class="step-section" id="s2">
+  <div class="step-header">
+    <div class="step-num-badge">02</div>
+    <div class="step-meta">
+      <p class="step-phase">Data engineering</p>
+      <h2>Data preprocessing pipeline</h2>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/preprocess.py</span></div>
+<pre>
+<span class="kw">import</span> re, json, pandas <span class="kw">as</span> pd
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+<span class="kw">from</span> langchain.text_splitter <span class="kw">import</span> RecursiveCharacterTextSplitter
+
+<span class="cm"># ── Text cleaning ──────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">clean_text</span>(text: str) -> str:
+    text = re.sub(r<span class="str">'&amp;\w+;'</span>, <span class="str">' '</span>, text)          <span class="cm"># HTML entities</span>
+    text = re.sub(r<span class="str">'<[^>]+>'</span>, <span class="str">' '</span>, text)        <span class="cm"># HTML tags</span>
+    text = re.sub(r<span class="str">'\n{3,}'</span>, <span class="str">'\n\n'</span>, text)       <span class="cm"># excess newlines</span>
+    text = re.sub(r<span class="str">'[ \t\r\f\v]+'</span>, <span class="str">' '</span>, text)    <span class="cm"># horizontal whitespace</span>
+    text = re.sub(r<span class="str">'(?i)IN THE.{0,60}COURT'</span>, <span class="str">''</span>, text)  <span class="cm"># boilerplate</span>
+    <span class="kw">return</span> text.strip()
+
+<span class="cm"># ── Outcome label extraction ───────────────────────────</span>
+OUTCOME_MAP = {
+    <span class="str">"appeal allowed"</span>: <span class="num">1</span>,
+    <span class="str">"petition allowed"</span>: <span class="num">1</span>,
+    <span class="str">"appeal dismissed"</span>: <span class="num">0</span>,
+    <span class="str">"petition dismissed"</span>: <span class="num">0</span>,
+    <span class="str">"partly allowed"</span>: <span class="num">2</span>,
+    <span class="str">"disposed of"</span>: <span class="num">2</span>,
+}
+
+<span class="kw">def</span> <span class="fn">extract_outcome</span>(text: str) -> int:
+    text_lower = text.lower()[-<span class="num">500</span>:]           <span class="cm"># check last 500 chars</span>
+    <span class="kw">for</span> phrase, label <span class="kw">in</span> OUTCOME_MAP.items():
+        <span class="kw">if</span> phrase <span class="kw">in</span> text_lower:
+            <span class="kw">return</span> label
+    <span class="kw">return</span> -<span class="num">1</span>                                   <span class="cm"># -1 = unknown</span>
+
+<span class="cm"># ── Metadata extraction ────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">extract_metadata</span>(doc: dict) -> dict:
+    publish_date = doc.get(<span class="str">"publishdate"</span>) or <span class="str">"2000"</span>
+    <span class="kw">return</span> {
+        <span class="str">"doc_id"</span>: doc.get(<span class="str">"tid"</span>, <span class="str">""</span>) or <span class="str">""</span>,
+        <span class="str">"title"</span>: doc.get(<span class="str">"title"</span>, <span class="str">""</span>) or <span class="str">""</span>,
+        <span class="str">"court"</span>: doc.get(<span class="str">"docsource"</span>, <span class="str">""</span>) or <span class="str">""</span>,
+        <span class="str">"date"</span>: doc.get(<span class="str">"publishdate"</span>, <span class="str">""</span>) or <span class="str">""</span>,
+        <span class="str">"citation"</span>: doc.get(<span class="str">"citation"</span>, <span class="str">""</span>) or <span class="str">""</span>,
+        <span class="str">"text_length"</span>: len(doc.get(<span class="str">"doc"</span>) or <span class="str">""</span>),
+        <span class="str">"year"</span>: str(publish_date)[:<span class="num">4</span>],
+    }
+
+<span class="cm"># ── Chunker for RAG ────────────────────────────────────</span>
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=<span class="num">512</span>,
+    chunk_overlap=<span class="num">50</span>,
+    separators=[<span class="str">"\n\n"</span>, <span class="str">"\n"</span>, <span class="str">". "</span>, <span class="str">" "</span>]
+)
+
+<span class="kw">def</span> <span class="fn">chunk_document</span>(doc_id: str, text: str, metadata: dict) -> list:
+    chunks = splitter.split_text(text)
+    chunk_meta = {k: v <span class="kw">for</span> k, v <span class="kw">in</span> metadata.items() <span class="kw">if</span> k != <span class="str">"cleaned_text"</span>}
+    <span class="kw">return</span> [
+        {<span class="str">"chunk_id"</span>: <span class="str">f"{doc_id}_c{i}"</span>,
+         <span class="str">"text"</span>: c,
+         <span class="str">"doc_id"</span>: doc_id,
+         **chunk_meta}
+        <span class="kw">for</span> i, c <span class="kw">in</span> enumerate(chunks)
+    ]
+
+<span class="cm"># ── Main pipeline ──────────────────────────────────────</span>
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    all_chunks, metadata_rows = [], []
+
+    <span class="kw">for</span> fpath <span class="kw">in</span> Path(<span class="str">"data/raw"</span>).glob(<span class="str">"*.json"</span>):
+        <span class="kw">with</span> open(fpath) <span class="kw">as</span> f:
+            docs = json.load(f)
+
+        <span class="kw">for</span> doc <span class="kw">in</span> docs:
+            raw_text = doc.get(<span class="str">"doc"</span>) or <span class="str">""
+            if len(raw_text) < 200: continue</span>
+
+            clean = <span class="fn">clean_text</span>(raw_text)
+            meta  = <span class="fn">extract_metadata</span>(doc)
+            meta[<span class="str">"outcome"</span>] = <span class="fn">extract_outcome</span>(clean)
+            meta[<span class="str">"cleaned_text"</span>] = clean
+
+            chunks = <span class="fn">chunk_document</span>(meta[<span class="str">"doc_id"</span>], clean, meta)
+            all_chunks.extend(chunks)
+            metadata_rows.append(meta)
+
+    pd.DataFrame(metadata_rows).to_csv(<span class="str">"data/cases_metadata.csv"</span>, index=<span class="dec">False</span>)
+    <span class="kw">with</span> open(<span class="str">"data/processed/chunks.jsonl"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
+        <span class="kw">for</span> c <span class="kw">in</span> all_chunks:
+            f.write(json.dumps(c) + <span class="str">"\n"</span>)
+
+    <span class="fn">print</span>(<span class="str">f"Done: {len(metadata_rows)} cases → {len(all_chunks)} chunks"</span>)
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 3 ═══════ -->
+<section class="step-section" id="s3">
+  <div class="step-header">
+    <div class="step-num-badge">03</div>
+    <div class="step-meta">
+      <p class="step-phase">NLP module</p>
+      <h2>Train spaCy NER — legal entity extractor</h2>
+    </div>
+  </div>
+
+  <div class="info-box info-note">
+    <strong>What this module does</strong>
+    Extracts structured entities from free-form case text: who are the parties, which statute was invoked, who is the judge, what is the verdict. These entities feed both the ML feature builder and the UI entity panel.
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/train_ner.py</span></div>
+<pre>
+<span class="kw">import</span> spacy, json, random
+<span class="kw">from</span> spacy.training <span class="kw">import</span> Example
+<span class="kw">from</span> spacy.util <span class="kw">import</span> minibatch, compounding
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+<span class="cm"># ── Load pre-annotated data (from iiitnlp/Indian-Legal-NER) ──</span>
+ID_TO_LABEL = {
+    <span class="num">0</span>: <span class="str">"O"</span>,
+    <span class="num">1</span>: <span class="str">"B-PETITIONER"</span>, <span class="num">2</span>: <span class="str">"I-PETITIONER"</span>,
+    <span class="num">3</span>: <span class="str">"B-RESPONDENT"</span>, <span class="num">4</span>: <span class="str">"I-RESPONDENT"</span>,
+    <span class="num">5</span>: <span class="str">"B-JUDGE"</span>, <span class="num">6</span>: <span class="str">"I-JUDGE"</span>,
+    <span class="num">7</span>: <span class="str">"B-COURT"</span>, <span class="num">8</span>: <span class="str">"I-COURT"</span>,
+    <span class="num">9</span>: <span class="str">"B-STATUTE"</span>, <span class="num">10</span>: <span class="str">"I-STATUTE"</span>,
+    <span class="num">11</span>: <span class="str">"B-SECTION"</span>, <span class="num">12</span>: <span class="str">"I-SECTION"</span>,
+    <span class="num">13</span>: <span class="str">"B-CITATION"</span>, <span class="num">14</span>: <span class="str">"I-CITATION"</span>,
+    <span class="num">15</span>: <span class="str">"B-VERDICT"</span>, <span class="num">16</span>: <span class="str">"I-VERDICT"</span>,
+    <span class="num">17</span>: <span class="str">"B-DATE"</span>, <span class="num">18</span>: <span class="str">"I-DATE"</span>,
+    <span class="num">19</span>: <span class="str">"B-CHARGE"</span>, <span class="num">20</span>: <span class="str">"I-CHARGE"</span>
+}
+
+<span class="kw">def</span> <span class="fn">load_ner_data</span>(path: str) -> list:
+    <span class="str">"""Convert HuggingFace NER dataset to spaCy format."""</span>
+    data = []
+    <span class="kw">with</span> open(path) <span class="kw">as</span> f:
+        <span class="kw">for</span> line <span class="kw">in</span> f:
+            row = json.loads(line)
+            tokens = row[<span class="str">"tokens"</span>]
+            raw_tags = row[<span class="str">"ner_tags"</span>]
+            tags = [ID_TO_LABEL.get(t, <span class="str">"O"</span>) <span class="kw">if</span> isinstance(t, int) <span class="kw">else</span> t <span class="kw">for</span> t <span class="kw">in</span> raw_tags]
+            text   = <span class="str">" "</span>.join(tokens)
+            entities = []
+            start, i = <span class="num">0</span>, <span class="num">0</span>
+            <span class="kw">while</span> i < len(tokens):
+                token_start = text.find(tokens[i], start)
+                <span class="kw">if</span> token_start == -<span class="num">1</span>:
+                    token_start = start
+                token_end   = token_start + len(tokens[i])
+                <span class="kw">if</span> tags[i] != <span class="str">"O"</span>:
+                    label = tags[i].split(<span class="str">"-"</span>)[-<span class="num">1</span>]  <span class="cm"># B-JUDGE → JUDGE</span>
+                    entities.append((token_start, token_end, label))
+                start = token_end + <span class="num">1</span>
+                i += <span class="num">1</span>
+            data.append((text, {<span class="str">"entities"</span>: entities}))
+    <span class="kw">return</span> data
+
+<span class="cm"># ── Add custom labels ─────────────────────────────────────────</span>
+CUSTOM_LABELS = [
+    <span class="str">"PETITIONER"</span>, <span class="str">"RESPONDENT"</span>, <span class="str">"JUDGE"</span>, <span class="str">"COURT"</span>,
+    <span class="str">"STATUTE"</span>, <span class="str">"SECTION"</span>, <span class="str">"CITATION"</span>, <span class="str">"VERDICT"</span>,
+    <span class="str">"DATE"</span>, <span class="str">"CHARGE"</span>
+]
+
+<span class="kw">def</span> <span class="fn">train_ner</span>(train_path: str, output_dir: str, n_iter: int = <span class="num">30</span>):
+    nlp = spacy.load(<span class="str">"en_core_web_sm"</span>)
+    ner = nlp.get_pipe(<span class="str">"ner"</span>)
+
+    <span class="kw">for</span> label <span class="kw">in</span> CUSTOM_LABELS:
+        ner.add_label(label)
+
+    train_data = <span class="fn">load_ner_data</span>(train_path)
+    random.shuffle(train_data)
+
+    optimizer = nlp.resume_training()
+    other_pipes = [p <span class="kw">for</span> p <span class="kw">in</span> nlp.pipe_names <span class="kw">if</span> p != <span class="str">"ner"</span>]
+
+    <span class="kw">with</span> nlp.disable_pipes(*other_pipes):
+        <span class="kw">for</span> epoch <span class="kw">in</span> range(n_iter):
+            random.shuffle(train_data)
+            losses = {}
+            batches = minibatch(train_data, size=compounding(<span class="num">4.0</span>, <span class="num">32.0</span>, <span class="num">1.001</span>))
+            <span class="kw">for</span> batch <span class="kw">in</span> batches:
+                <span class="kw">for</span> text, annotations <span class="kw">in</span> batch:
+                    doc = nlp.make_doc(text)
+                    example = Example.from_dict(doc, annotations)
+                    nlp.update([example], sgd=optimizer, losses=losses, drop=<span class="num">0.3</span>)
+            <span class="fn">print</span>(<span class="str">f"Epoch {epoch+1}/{n_iter} — NER loss: {losses.get('ner', 0):.4f}"</span>)
+
+    nlp.to_disk(output_dir)
+    <span class="fn">print</span>(<span class="str">f"Model saved to {output_dir}"</span>)
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    <span class="fn">train_ner</span>(
+        train_path=<span class="str">"data/raw/ner_train.jsonl"</span>,
+        output_dir=<span class="str">"models/legal_ner"</span>,
+        n_iter=<span class="num">30</span>
+    )
+
+<span class="cm"># ── Inference usage ───────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">extract_entities</span>(text: str, nlp=<span class="dec">None</span>) -> dict:
+    <span class="kw">if</span> nlp <span class="kw">is</span> <span class="dec">None</span>:
+        nlp = spacy.load(<span class="str">"models/legal_ner"</span>)
+    doc = nlp(text)
+    result = {}
+    <span class="kw">for</span> ent <span class="kw">in</span> doc.ents:
+        result.setdefault(ent.label_, []).append(ent.text)
+    <span class="kw">return</span> result
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 4 ═══════ -->
+<section class="step-section" id="s4">
+  <div class="step-header">
+    <div class="step-num-badge">04</div>
+    <div class="step-meta">
+      <p class="step-phase">Deep learning module</p>
+      <h2>Fine-tune BART for legal summarization</h2>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/train_summarizer.py</span></div>
+<pre>
+<span class="kw">from</span> transformers <span class="kw">import</span> (BartForConditionalGeneration,
+                          BartTokenizer, Seq2SeqTrainer,
+                          Seq2SeqTrainingArguments, DataCollatorForSeq2Seq)
+<span class="kw">from</span> datasets <span class="kw">import</span> load_dataset
+<span class="kw">import</span> evaluate, numpy <span class="kw">as</span> np
+
+MODEL_NAME = <span class="str">"facebook/bart-large-cnn"</span>
+tokenizer  = BartTokenizer.from_pretrained(MODEL_NAME)
+model      = BartForConditionalGeneration.from_pretrained(MODEL_NAME)
+
+<span class="cm"># ── Load LegalSum dataset ─────────────────────────────────────</span>
+dataset = load_dataset(<span class="str">"d0r1h/LegalSum"</span>)   <span class="cm"># judgment + headnote pairs</span>
+<span class="kw">if</span> <span class="str">"test"</span> <span class="kw">not in</span> dataset:
+    dataset = dataset[<span class="str">"train"</span>].train_test_split(test_size=<span class="num">0.1</span>)
+
+<span class="kw">def</span> <span class="fn">preprocess</span>(batch):
+    inputs = tokenizer(
+        batch[<span class="str">"judgment"</span>], max_length=<span class="num">1024</span>,
+        truncation=<span class="dec">True</span>, padding=<span class="str">"max_length"</span>
+    )
+    labels = tokenizer(
+        batch[<span class="str">"summary"</span>], max_length=<span class="num">256</span>,
+        truncation=<span class="dec">True</span>, padding=<span class="str">"max_length"</span>
+    )
+    inputs[<span class="str">"labels"</span>] = [
+        [(-<span class="num">100</span> <span class="kw">if</span> t == tokenizer.pad_token_id <span class="kw">else</span> t) <span class="kw">for</span> t <span class="kw">in</span> ids]
+        <span class="kw">for</span> ids <span class="kw">in</span> labels[<span class="str">"input_ids"</span>]
+    ]
+    <span class="kw">return</span> inputs
+
+tokenized = dataset.map(preprocess, batched=<span class="dec">True</span>, remove_columns=dataset[<span class="str">"train"</span>].column_names)
+
+<span class="cm"># ── ROUGE metric ──────────────────────────────────────────────</span>
+rouge = evaluate.load(<span class="str">"rouge"</span>)
+
+<span class="kw">def</span> <span class="fn">compute_metrics</span>(eval_pred):
+    preds, labels = eval_pred
+    decoded_preds   = tokenizer.batch_decode(preds, skip_special_tokens=<span class="dec">True</span>)
+    labels[labels == -<span class="num">100</span>] = tokenizer.pad_token_id
+    decoded_labels  = tokenizer.batch_decode(labels, skip_special_tokens=<span class="dec">True</span>)
+    result = rouge.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=<span class="dec">True</span>)
+    <span class="kw">return</span> {k: round(v * <span class="num">100</span>, <span class="num">4</span>) <span class="kw">for</span> k, v <span class="kw">in</span> result.items()}
+
+<span class="cm"># ── Training config ───────────────────────────────────────────</span>
+args = Seq2SeqTrainingArguments(
+    output_dir=<span class="str">"models/legal_summarizer"</span>,
+    num_train_epochs=<span class="num">5</span>,
+    per_device_train_batch_size=<span class="num">4</span>,
+    per_device_eval_batch_size=<span class="num">4</span>,
+    warmup_steps=<span class="num">500</span>,
+    weight_decay=<span class="num">0.01</span>,
+    learning_rate=<span class="num">2e-5</span>,
+    predict_with_generate=<span class="dec">True</span>,
+    evaluation_strategy=<span class="str">"epoch"</span>,
+    save_strategy=<span class="str">"epoch"</span>,
+    load_best_model_at_end=<span class="dec">True</span>,
+    fp16=<span class="dec">True</span>,                        <span class="cm"># use GPU half-precision</span>
+    logging_steps=<span class="num">100</span>,
+)
+
+collator = DataCollatorForSeq2Seq(tokenizer, model=model, padding=<span class="dec">True</span>)
+trainer = Seq2SeqTrainer(
+    model=model,
+    args=args,
+    train_dataset=tokenized[<span class="str">"train"</span>],
+    eval_dataset=tokenized[<span class="str">"test"</span>],
+    tokenizer=tokenizer,
+    data_collator=collator,
+    compute_metrics=<span class="fn">compute_metrics</span>,
+)
+
+trainer.train()
+model.save_pretrained(<span class="str">"models/legal_summarizer"</span>)
+tokenizer.save_pretrained(<span class="str">"models/legal_summarizer"</span>)
+<span class="fn">print</span>(<span class="str">"Summarizer saved."</span>)
+
+<span class="cm"># ── Inference ─────────────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">summarize</span>(text: str, model=<span class="dec">None</span>, tokenizer=<span class="dec">None</span>, max_len: int = <span class="num">200</span>) -> str:
+    <span class="kw">if</span> model <span class="kw">is</span> <span class="dec">None</span> <span class="kw">or</span> tokenizer <span class="kw">is</span> <span class="dec">None</span>:
+        <span class="kw">from</span> transformers <span class="kw">import</span> BartForConditionalGeneration, BartTokenizer
+        tokenizer = BartTokenizer.from_pretrained(<span class="str">"models/legal_summarizer"</span>)
+        model = BartForConditionalGeneration.from_pretrained(<span class="str">"models/legal_summarizer"</span>)
+    inputs = tokenizer(text, return_tensors=<span class="str">"pt"</span>, max_length=<span class="num">1024</span>, truncation=<span class="dec">True</span>)
+    ids    = model.generate(inputs[<span class="str">"input_ids"</span>], max_length=max_len, num_beams=<span class="num">4</span>, early_stopping=<span class="dec">True</span>)
+    <span class="kw">return</span> tokenizer.decode(ids[<span class="num">0</span>], skip_special_tokens=<span class="dec">True</span>)
+</pre>
+  </div>
+
+  <div class="info-box info-tip">
+    <strong>No GPU? Use Google Colab</strong>
+    BART fine-tuning needs a GPU. Use Colab Free (T4) or Colab Pro (A100). Training on 10k pairs takes ~3 hours on T4. Save the model to Google Drive, then download to <code>models/legal_summarizer/</code>.
+  </div>
+</section>
+
+<!-- ═══════ STEP 5 ═══════ -->
+<section class="step-section" id="s5">
+  <div class="step-header">
+    <div class="step-num-badge">05</div>
+    <div class="step-meta">
+      <p class="step-phase">Machine learning module</p>
+      <h2>XGBoost outcome predictor + SHAP explainability</h2>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/train_outcome.py</span></div>
+<pre>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd, numpy <span class="kw">as</span> np
+<span class="kw">import</span> xgboost <span class="kw">as</span> xgb, shap, json
+<span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> StratifiedKFold, cross_val_score
+<span class="kw">from</span> sklearn.preprocessing <span class="kw">import</span> LabelEncoder
+<span class="kw">from</span> sklearn.metrics <span class="kw">import</span> classification_report
+
+<span class="cm"># ── Feature engineering ───────────────────────────────────────</span>
+COURT_RANK = {
+    <span class="str">"Supreme Court"</span>: <span class="num">4</span>, <span class="str">"High Court"</span>: <span class="num">3</span>,
+    <span class="str">"District Court"</span>: <span class="num">2</span>, <span class="str">"Tribunal"</span>: <span class="num">1</span>
+}
+CHARGE_LABELS = [<span class="str">"302"</span>, <span class="str">"307"</span>, <span class="str">"420"</span>, <span class="str">"498A"</span>, <span class="str">"376"</span>, <span class="str">"304B"</span>, <span class="str">"other"</span>]
+
+<span class="kw">def</span> <span class="fn">build_features</span>(df: pd.DataFrame) -> pd.DataFrame:
+    df[<span class="str">"court_level"</span>]   = df[<span class="str">"court"</span>].map(COURT_RANK).fillna(<span class="num">1</span>)
+    df[<span class="str">"year_int"</span>]      = pd.to_numeric(df[<span class="str">"year"</span>], errors=<span class="str">"coerce"</span>).fillna(<span class="num">2000</span>)
+    df[<span class="str">"text_len"</span>]      = df[<span class="str">"text_length"</span>].fillna(<span class="num">0</span>)
+    df[<span class="str">"has_bail"</span>]      = df[<span class="str">"title"</span>].str.contains(<span class="str">"bail"</span>, case=<span class="dec">False</span>).astype(int)
+    df[<span class="str">"has_appeal"</span>]    = df[<span class="str">"title"</span>].str.contains(<span class="str">"appeal"</span>, case=<span class="dec">False</span>).astype(int)
+    df[<span class="str">"is_criminal"</span>]   = df[<span class="str">"title"</span>].str.contains(<span class="str">"criminal|IPC|CrPC"</span>, case=<span class="dec">False</span>).astype(int)
+
+    <span class="cm"># One-hot encode top charge sections</span>
+    <span class="kw">for</span> ch <span class="kw">in</span> CHARGE_LABELS:
+        df[<span class="str">f"charge_{ch}"</span>] = df.get(<span class="str">"citation"</span>, <span class="str">""</span>).str.contains(ch).astype(int)
+
+    FEATURE_COLS = [
+        <span class="str">"court_level"</span>, <span class="str">"year_int"</span>, <span class="str">"text_len"</span>,
+        <span class="str">"has_bail"</span>, <span class="str">"has_appeal"</span>, <span class="str">"is_criminal"</span>
+    ] + [<span class="str">f"charge_{ch}"</span> <span class="kw">for</span> ch <span class="kw">in</span> CHARGE_LABELS]
+
+    <span class="kw">return</span> df[FEATURE_COLS], FEATURE_COLS
+
+<span class="cm"># ── Load data ─────────────────────────────────────────────────</span>
+df = pd.read_csv(<span class="str">"data/cases_metadata.csv"</span>)
+df = df[df[<span class="str">"outcome"</span>] >= <span class="num">0</span>].copy()       <span class="cm"># remove unlabeled</span>
+
+X, feat_cols = <span class="fn">build_features</span>(df)
+y = df[<span class="str">"outcome"</span>].values
+
+<span class="cm"># ── Train XGBoost ─────────────────────────────────────────────</span>
+model = xgb.XGBClassifier(
+    n_estimators=<span class="num">500</span>,
+    learning_rate=<span class="num">0.05</span>,
+    max_depth=<span class="num">6</span>,
+    subsample=<span class="num">0.8</span>,
+    colsample_bytree=<span class="num">0.8</span>,
+    use_label_encoder=<span class="dec">False</span>,
+    eval_metric=<span class="str">"mlogloss"</span>,
+    random_state=<span class="num">42</span>
+)
+
+skf = StratifiedKFold(n_splits=<span class="num">5</span>, shuffle=<span class="dec">True</span>, random_state=<span class="num">42</span>)
+cv_scores = cross_val_score(model, X, y, cv=skf, scoring=<span class="str">"f1_macro"</span>)
+<span class="fn">print</span>(<span class="str">f"CV F1-macro: {cv_scores.mean():.3f} ± {cv_scores.std():.3f}"</span>)
+
+model.fit(X, y)
+model.save_model(<span class="str">"models/outcome_xgb.json"</span>)
+json.dump(feat_cols, open(<span class="str">"models/feature_cols.json"</span>, <span class="str">"w"</span>))
+
+<span class="cm"># ── Feature engineering for a single query ────────────────────</span>
+<span class="kw">def</span> <span class="fn">build_features_single</span>(entities_dict: dict, court: str, feat_names: list) -> dict:
+    court_level = COURT_RANK.get(court, <span class="num">1</span>)
+    title_text = <span class="str">" "</span>.join(entities_dict.get(<span class="str">"VERDICT"</span>, []) + entities_dict.get(<span class="str">"CHARGE"</span>, []))
+    citation_text = <span class="str">" "</span>.join(entities_dict.get(<span class="str">"CITATION"</span>, []))
+    
+    features = {
+        <span class="str">"court_level"</span>: court_level,
+        <span class="str">"year_int"</span>: <span class="num">2024</span>,
+        <span class="str">"text_len"</span>: <span class="num">1000</span>,
+        <span class="str">"has_bail"</span>: int(<span class="str">"bail"</span> <span class="kw">in</span> title_text.lower()),
+        <span class="str">"has_appeal"</span>: int(<span class="str">"appeal"</span> <span class="kw">in</span> title_text.lower()),
+        <span class="str">"is_criminal"</span>: int(any(x <span class="kw">in</span> title_text.lower() <span class="kw">for</span> x <span class="kw">in</span> [<span class="str">"criminal"</span>, <span class="str">"ipc"</span>, <span class="str">"crpc"</span>]))
+    }
+    
+    <span class="kw">for</span> ch <span class="kw">in</span> CHARGE_LABELS:
+        features[<span class="str">f"charge_{ch}"</span>] = int(ch <span class="kw">in</span> citation_text)
+        
+    <span class="kw">return</span> features
+
+<span class="cm"># ── Prediction + explanation for one case ─────────────────────</span>
+LABELS = {<span class="num">0</span>: <span class="str">"Appeal Dismissed"</span>, <span class="num">1</span>: <span class="str">"Appeal Allowed"</span>, <span class="num">2</span>: <span class="str">"Partly Allowed"</span>}
+
+<span class="kw">def</span> <span class="fn">predict_outcome</span>(features_dict: dict, xgb_model=<span class="dec">None</span>, feat_names=<span class="dec">None</span>) -> dict:
+    <span class="kw">if</span> xgb_model <span class="kw">is</span> <span class="dec">None</span>:
+        xgb_model = xgb.XGBClassifier()
+        xgb_model.load_model(<span class="str">"models/outcome_xgb.json"</span>)
+    <span class="kw">if</span> feat_names <span class="kw">is</span> <span class="dec">None</span>:
+        feat_names = json.load(open(<span class="str">"models/feature_cols.json"</span>))
+        
+    x_row = np.array([[features_dict.get(f, <span class="num">0</span>) <span class="kw">for</span> f <span class="kw">in</span> feat_names]])
+    proba = xgb_model.predict_proba(x_row)[<span class="num">0</span>]
+    pred  = int(np.argmax(proba))
+    
+    sv = shap.TreeExplainer(xgb_model).shap_values(x_row)
+    <span class="kw">if</span> isinstance(sv, list):
+        sv_pred = sv[pred][<span class="num">0</span>]
+    <span class="kw">elif</span> len(sv.shape) == <span class="num">3</span>:
+        sv_pred = sv[<span class="num">0</span>, :, pred]
+    <span class="kw">else</span>:
+        sv_pred = sv[<span class="num">0</span>]
+        
+    top_feats = sorted(
+        zip(feat_names, sv_pred), key=<span class="kw">lambda</span> x: abs(x[<span class="num">1</span>]), reverse=<span class="dec">True</span>
+    )[:<span class="num">5</span>]
+    
+    <span class="kw">return</span> {
+        <span class="str">"label"</span>: LABELS[pred],
+        <span class="str">"confidence"</span>: round(float(proba[pred]), <span class="num">3</span>),
+        <span class="str">"probabilities"</span>: {LABELS[i]: round(float(p), <span class="num">3</span>) <span class="kw">for</span> i, p <span class="kw">in</span> enumerate(proba)},
+        <span class="str">"top_factors"</span>: [{<span class="str">"feature"</span>: f, <span class="str">"shap"</span>: round(float(s), <span class="num">4</span>)} <span class="kw">for</span> f, s <span class="kw">in</span> top_feats],
+    }
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 6 ═══════ -->
+<section class="step-section" id="s6">
+  <div class="step-header">
+    <div class="step-num-badge">06</div>
+    <div class="step-meta">
+      <p class="step-phase">RAG pipeline</p>
+      <h2>Embed corpus, index in Pinecone, build retrieval chain</h2>
+    </div>
+  </div>
+
+  <h3>Step 6a — Embed and index the corpus</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/embed_corpus.py</span></div>
+<pre>
+<span class="kw">import</span> json, os
+<span class="kw">from</span> pinecone <span class="kw">import</span> Pinecone, ServerlessSpec
+<span class="kw">from</span> sentence_transformers <span class="kw">import</span> SentenceTransformer
+<span class="kw">from</span> tqdm <span class="kw">import</span> tqdm
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+load_dotenv()
+pc = Pinecone(api_key=os.getenv(<span class="str">"PINECONE_API_KEY"</span>))
+
+<span class="cm"># Use InLegalBERT — fine-tuned on Indian legal text</span>
+embedder = SentenceTransformer(<span class="str">"law-ai/InLegalBERT"</span>)
+INDEX_NAME = <span class="str">"lexmind-cases"</span>
+
+<span class="cm"># Create index if it doesn't exist</span>
+<span class="kw">if</span> INDEX_NAME <span class="kw">not in</span> [i.name <span class="kw">for</span> i <span class="kw">in</span> pc.list_indexes()]:
+    pc.create_index(
+        name=INDEX_NAME,
+        dimension=<span class="num">768</span>,          <span class="cm"># InLegalBERT output size</span>
+        metric=<span class="str">"cosine"</span>,
+        spec=ServerlessSpec(cloud=<span class="str">"aws"</span>, region=<span class="str">"us-east-1"</span>)
+    )
+
+index = pc.Index(INDEX_NAME)
+
+<span class="cm"># ── Batch embed and upsert ────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">upsert_chunks</span>(chunks_path: str, batch_size: int = <span class="num">100</span>):
+    chunks = []
+    <span class="kw">with</span> open(chunks_path) <span class="kw">as</span> f:
+        chunks = [json.loads(l) <span class="kw">for</span> l <span class="kw">in</span> f]
+
+    <span class="kw">for</span> i <span class="kw">in</span> tqdm(range(<span class="num">0</span>, len(chunks), batch_size), desc=<span class="str">"Upserting"</span>):
+        batch = chunks[i:i+batch_size]
+        texts   = [c[<span class="str">"text"</span>] <span class="kw">for</span> c <span class="kw">in</span> batch]
+        vectors = embedder.encode(texts, show_progress_bar=<span class="dec">False</span>)
+
+        upsert_data = [
+            (
+                c[<span class="str">"chunk_id"</span>],
+                vectors[j].tolist(),
+                {
+                    <span class="str">"doc_id"</span>: c[<span class="str">"doc_id"</span>],
+                    <span class="str">"court"</span>: c.get(<span class="str">"court"</span>, <span class="str">""</span>),
+                    <span class="str">"year"</span>: c.get(<span class="str">"year"</span>, <span class="str">""</span>),
+                    <span class="str">"citation"</span>: c.get(<span class="str">"citation"</span>, <span class="str">""</span>),
+                    <span class="str">"text"</span>: c[<span class="str">"text"</span>][:<span class="num">500</span>],    <span class="cm"># store preview</span>
+                }
+            )
+            <span class="kw">for</span> j, c <span class="kw">in</span> enumerate(batch)
+        ]
+        index.upsert(vectors=upsert_data)
+
+    <span class="fn">print</span>(<span class="str">f"Indexed {len(chunks)} chunks into Pinecone."</span>)
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    <span class="fn">upsert_chunks</span>(<span class="str">"data/processed/chunks.jsonl"</span>)
+</pre>
+  </div>
+
+  <h3>Step 6b — Retrieval chain with LangChain</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">src/rag_chain.py</span></div>
+<pre>
+<span class="kw">import</span> os
+<span class="kw">from</span> pinecone <span class="kw">import</span> Pinecone
+<span class="kw">from</span> langchain_anthropic <span class="kw">import</span> ChatAnthropic
+<span class="kw">from</span> langchain.prompts <span class="kw">import</span> PromptTemplate
+<span class="kw">from</span> langchain.chains <span class="kw">import</span> RetrievalQAWithSourcesChain
+<span class="kw">from</span> langchain_community.vectorstores <span class="kw">import</span> Pinecone <span class="kw">as</span> PineconeVS
+<span class="kw">from</span> langchain_huggingface <span class="kw">import</span> HuggingFaceEmbeddings
+<span class="kw">from</span> dotenv <span class="kw">import</span> load_dotenv
+
+load_dotenv()
+
+<span class="cm"># ── Connect to existing Pinecone index ────────────────────────</span>
+embeddings = HuggingFaceEmbeddings(model_name=<span class="str">"law-ai/InLegalBERT"</span>)
+vectorstore = PineconeVS.from_existing_index(<span class="str">"lexmind-cases"</span>, embeddings)
+
+<span class="cm"># ── Retriever with metadata filtering ─────────────────────────</span>
+<span class="kw">def</span> <span class="fn">get_retriever</span>(court_filter: str = <span class="dec">None</span>, year_from: int = <span class="num">2000</span>):
+    search_kwargs = {<span class="str">"k"</span>: <span class="num">20</span>}
+    <span class="kw">if</span> court_filter:
+        search_kwargs[<span class="str">"filter"</span>] = {<span class="str">"court"</span>: {<span class="str">"$eq"</span>: court_filter}}
+    <span class="kw">return</span> vectorstore.as_retriever(
+        search_type=<span class="str">"mmr"</span>,          <span class="cm"># max marginal relevance — diversity</span>
+        search_kwargs=search_kwargs
+    )
+
+<span class="cm"># ── Legal RAG prompt ──────────────────────────────────────────</span>
+PROMPT = PromptTemplate(
+    input_variables=[<span class="str">"summaries"</span>, <span class="str">"question"</span>],
+    template=<span class="str">"""You are an expert Indian legal research assistant.
+
+Use ONLY the retrieved case excerpts below to answer the question.
+For every claim, cite the case name and year in parentheses.
+If you are unsure, say "Based on available precedents, this is unclear."
+Be concise — 3 to 5 sentences maximum.
+
+Retrieved cases:
+{summaries}
+
+Question: {question}
+
+Answer (with citations):"""</span>
+)
+
+<span class="cm"># ── Build the chain ───────────────────────────────────────────</span>
+llm = ChatAnthropic(
+    model=<span class="str">"claude-sonnet-4-20250514"</span>,
+    api_key=os.getenv(<span class="str">"ANTHROPIC_API_KEY"</span>),
+    max_tokens=<span class="num">1000</span>
+)
+
+<span class="kw">def</span> <span class="fn">get_rag_chain</span>(court_filter=<span class="dec">None</span>):
+    retriever = <span class="fn">get_retriever</span>(court_filter)
+    <span class="kw">return</span> RetrievalQAWithSourcesChain.from_chain_type(
+        llm=llm,
+        retriever=retriever,
+        chain_type=<span class="str">"stuff"</span>,
+        chain_type_kwargs={<span class="str">"prompt"</span>: PROMPT},
+        return_source_documents=<span class="dec">True</span>
+    )
+
+<span class="kw">def</span> <span class="fn">run_rag</span>(query: str, court: str = <span class="dec">None</span>) -> dict:
+    chain  = <span class="fn">get_rag_chain</span>(court)
+    result = chain.invoke({<span class="str">"question"</span>: query})
+    sources = [
+        {
+            <span class="str">"citation"</span>: doc.metadata.get(<span class="str">"citation"</span>, <span class="str">"Unknown"</span>),
+            <span class="str">"court"</span>: doc.metadata.get(<span class="str">"court"</span>, <span class="str">""</span>),
+            <span class="str">"year"</span>: doc.metadata.get(<span class="str">"year"</span>, <span class="str">""</span>),
+            <span class="str">"preview"</span>: doc.page_content[:<span class="num">300</span>]
+        }
+        <span class="kw">for</span> doc <span class="kw">in</span> result[<span class="str">"source_documents"</span>][:<span class="num">5</span>]  <span class="cm"># top 5 only</span>
+    ]
+    <span class="kw">return</span> {<span class="str">"answer"</span>: result[<span class="str">"answer"</span>], <span class="str">"sources"</span>: sources}
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 7 ═══════ -->
+<section class="step-section" id="s7">
+  <div class="step-header">
+    <div class="step-num-badge">07</div>
+    <div class="step-meta">
+      <p class="step-phase">Backend</p>
+      <h2>FastAPI — unified /analyze endpoint</h2>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">main.py</span></div>
+<pre>
+<span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI, HTTPException
+<span class="kw">from</span> pydantic <span class="kw">import</span> BaseModel
+<span class="kw">from</span> contextlib <span class="kw">import</span> asynccontextmanager
+<span class="kw">import</span> spacy, xgboost <span class="kw">as</span> xgb, json
+<span class="kw">from</span> transformers <span class="kw">import</span> BartForConditionalGeneration, BartTokenizer
+
+<span class="kw">from</span> src.rag_chain <span class="kw">import</span> run_rag
+<span class="kw">from</span> src.train_outcome <span class="kw">import</span> predict_outcome, build_features_single
+<span class="kw">from</span> src.train_ner <span class="kw">import</span> extract_entities
+<span class="kw">from</span> src.train_summarizer <span class="kw">import</span> summarize
+
+<span class="cm"># ── Startup: load all models once ─────────────────────────────</span>
+models = {}
+
+@asynccontextmanager
+<span class="kw">async def</span> <span class="fn">lifespan</span>(app: FastAPI):
+    <span class="fn">print</span>(<span class="str">"Loading models..."</span>)
+    models[<span class="str">"ner"</span>] = spacy.load(<span class="str">"models/legal_ner"</span>)
+    models[<span class="str">"xgb"</span>] = xgb.XGBClassifier()
+    models[<span class="str">"xgb"</span>].load_model(<span class="str">"models/outcome_xgb.json"</span>)
+    models[<span class="str">"bart_tok"</span>] = BartTokenizer.from_pretrained(<span class="str">"models/legal_summarizer"</span>)
+    models[<span class="str">"bart"</span>]     = BartForConditionalGeneration.from_pretrained(<span class="str">"models/legal_summarizer"</span>)
+    models[<span class="str">"feat_cols"</span>] = json.load(open(<span class="str">"models/feature_cols.json"</span>))
+    <span class="fn">print</span>(<span class="str">"All models loaded."</span>)
+    <span class="kw">yield</span>
+
+app = FastAPI(title=<span class="str">"LexMind API"</span>, version=<span class="str">"1.0.0"</span>, lifespan=lifespan)
+
+<span class="cm"># ── Request / Response schemas ────────────────────────────────</span>
+<span class="kw">class</span> CaseQuery(BaseModel):
+    case_brief: str
+    jurisdiction: str = <span class="str">"Supreme Court"</span>
+    year_from: int = <span class="num">2000</span>
+
+<span class="kw">class</span> LexMindResponse(BaseModel):
+    summary: str
+    entities: dict
+    precedents: list
+    outcome: dict
+    answer: str
+
+<span class="cm"># ── Health check ──────────────────────────────────────────────</span>
+@app.get(<span class="str">"/"</span>)
+<span class="kw">async def</span> health():
+    <span class="kw">return</span> {<span class="str">"status"</span>: <span class="str">"ok"</span>, <span class="str">"models_loaded"</span>: list(models.keys())}
+
+<span class="cm"># ── Main analyze endpoint ─────────────────────────────────────</span>
+@app.post(<span class="str">"/analyze"</span>, response_model=LexMindResponse)
+<span class="kw">async def</span> <span class="fn">analyze_case</span>(query: CaseQuery):
+    <span class="kw">try</span>:
+        <span class="cm"># 1. NLP: entity extraction</span>
+        entities = <span class="fn">extract_entities</span>(query.case_brief, models[<span class="str">"ner"</span>])
+
+        <span class="cm"># 2. DL: summarize brief</span>
+        summary = <span class="fn">summarize</span>(
+            query.case_brief,
+            models[<span class="str">"bart"</span>], models[<span class="str">"bart_tok"</span>]
+        )
+
+        <span class="cm"># 3. ML: outcome prediction with SHAP</span>
+        features = <span class="fn">build_features_single</span>(
+            entities, query.jurisdiction, models[<span class="str">"feat_cols"</span>]
+        )
+        outcome = <span class="fn">predict_outcome</span>(features, models[<span class="str">"xgb"</span>], models[<span class="str">"feat_cols"</span>])
+
+        <span class="cm"># 4. RAG: retrieve precedents + LLM answer</span>
+        rag_result = <span class="fn">run_rag</span>(query.case_brief, court=query.jurisdiction)
+
+        <span class="kw">return</span> LexMindResponse(
+            summary=summary,
+            entities=entities,
+            precedents=rag_result[<span class="str">"sources"</span>],
+            outcome=outcome,
+            answer=rag_result[<span class="str">"answer"</span>]
+        )
+    <span class="kw">except</span> Exception <span class="kw">as</span> e:
+        <span class="kw">raise</span> HTTPException(status_code=<span class="num">500</span>, detail=str(e))
+
+<span class="cm"># Run: uvicorn main:app --reload --port 8000</span>
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 8 ═══════ -->
+<section class="step-section" id="s8">
+  <div class="step-header">
+    <div class="step-num-badge">08</div>
+    <div class="step-meta">
+      <p class="step-phase">Frontend</p>
+      <h2>Streamlit UI — 3-column result layout</h2>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">python</span><span class="code-file">app.py</span></div>
+<pre>
+<span class="kw">import</span> streamlit <span class="kw">as</span> st, requests, json, os
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+API_URL = os.getenv(<span class="str">"API_URL"</span>, <span class="str">"http://localhost:8000"</span>)
+
+st.set_page_config(
+    page_title=<span class="str">"LexMind — Legal Research AI"</span>,
+    page_icon=<span class="str">"⚖️"</span>, layout=<span class="str">"wide"</span>
+)
+
+<span class="cm"># ── Sidebar ────────────────────────────────────────────────────</span>
+<span class="kw">with</span> st.sidebar:
+    st.header(<span class="str">"⚖️ LexMind"</span>)
+    st.caption(<span class="str">"AI-powered legal research for Indian courts"</span>)
+    jurisdiction = st.selectbox(
+        <span class="str">"Court jurisdiction"</span>,
+        [<span class="str">"Supreme Court"</span>, <span class="str">"High Court"</span>, <span class="str">"District Court"</span>, <span class="str">"Tribunal"</span>]
+    )
+    year_from = st.slider(<span class="str">"Cases from year"</span>, <span class="num">1990</span>, <span class="num">2024</span>, <span class="num">2000</span>)
+    st.divider()
+    st.caption(<span class="str">"Powered by LangChain · InLegalBERT · Pinecone · XGBoost · BART"</span>)
+
+<span class="cm"># ── Input ──────────────────────────────────────────────────────</span>
+st.title(<span class="str">"⚖️ LexMind Legal Research"</span>)
+st.markdown(<span class="str">"Paste a case brief or legal query below."</span>)
+
+case_brief = st.text_area(
+    <span class="str">"Case brief or legal question"</span>,
+    height=<span class="num">180</span>,
+    placeholder=<span class="str">"E.g. My client is accused under Section 420 IPC for cheating. "
+               "No prior convictions. Delhi High Court. What precedents apply?"</span>
+)
+
+analyze_btn = st.button(<span class="str">"🔍 Analyze Case"</span>, type=<span class="str">"primary"</span>, use_container_width=<span class="dec">True</span>)
+
+<span class="cm"># ── Analysis ───────────────────────────────────────────────────</span>
+<span class="kw">if</span> analyze_btn <span class="kw">and</span> case_brief.strip():
+    <span class="kw">with</span> st.spinner(<span class="str">"Analyzing — running 4 AI models..."</span>):
+        resp = requests.post(
+            <span class="str">f"{API_URL}/analyze"</span>,
+            json={<span class="str">"case_brief"</span>: case_brief,
+                  <span class="str">"jurisdiction"</span>: jurisdiction,
+                  <span class="str">"year_from"</span>: year_from},
+            timeout=<span class="num">60</span>
+        )
+
+    <span class="kw">if</span> resp.status_code != <span class="num">200</span>:
+        st.error(<span class="str">f"API error: {resp.status_code} — {resp.text}"</span>)
+        st.stop()
+
+    data = resp.json()
+    st.divider()
+
+    <span class="cm"># ── 3-column layout ────────────────────────────────────────</span>
+    col_left, col_mid, col_right = st.columns([<span class="num">2</span>, <span class="num">1.2</span>, <span class="num">1</span>])
+
+    <span class="kw">with</span> col_left:
+        st.subheader(<span class="str">"📝 Case Summary"</span>)
+        st.info(data[<span class="str">"summary"</span>])
+
+        st.subheader(<span class="str">"🔍 AI Answer + Precedents"</span>)
+        st.write(data[<span class="str">"answer"</span>])
+
+        st.subheader(<span class="str">"📚 Retrieved Precedents"</span>)
+        <span class="kw">for</span> i, src <span class="kw">in</span> enumerate(data[<span class="str">"precedents"</span>], <span class="num">1</span>):
+            <span class="kw">with</span> st.expander(<span class="str">f"{i}. {src['citation']} ({src['year']}) — {src['court']}"</span>):
+                st.write(src[<span class="str">"preview"</span>])
+
+    <span class="kw">with</span> col_mid:
+        st.subheader(<span class="str">"📊 Outcome Prediction"</span>)
+        outcome = data[<span class="str">"outcome"</span>]
+        color = {<span class="str">"Appeal Allowed"</span>: <span class="str">"🟢"</span>, <span class="str">"Appeal Dismissed"</span>: <span class="str">"🔴"</span>, <span class="str">"Partly Allowed"</span>: <span class="str">"🟡"</span>}
+        st.metric(
+            <span class="str">"Predicted verdict"</span>,
+            <span class="str">f"{color.get(outcome['label'], '⚪')} {outcome['label']}"</span>,
+            <span class="str">f"{outcome['confidence']*100:.1f}% confidence"</span>
+        )
+        st.progress(outcome[<span class="str">"confidence"</span>])
+
+        <span class="cm"># Probability breakdown</span>
+        st.caption(<span class="str">"All outcome probabilities"</span>)
+        <span class="kw">for</span> label, prob <span class="kw">in</span> outcome[<span class="str">"probabilities"</span>].items():
+            st.write(<span class="str">f"**{label}**: {prob*100:.1f}%"</span>)
+            st.progress(prob)
+
+        <span class="cm"># SHAP waterfall chart</span>
+        st.subheader(<span class="str">"🔬 Why this prediction? (SHAP)"</span>)
+        factors = outcome[<span class="str">"top_factors"</span>]
+        feat_names = [f[<span class="str">"feature"</span>] <span class="kw">for</span> f <span class="kw">in</span> factors]
+        shap_vals  = [f[<span class="str">"shap"</span>] <span class="kw">for</span> f <span class="kw">in</span> factors]
+        colors = [<span class="str">"#2d7d46"</span> <span class="kw">if</span> v > <span class="num">0</span> <span class="kw">else</span> <span class="str">"#c0392b"</span> <span class="kw">for</span> v <span class="kw">in</span> shap_vals]
+        fig, ax = plt.subplots(figsize=(<span class="num">5</span>, <span class="num">3</span>))
+        ax.barh(feat_names, shap_vals, color=colors)
+        ax.axvline(<span class="num">0</span>, color=<span class="str">"black"</span>, linewidth=<span class="num">0.8</span>)
+        ax.set_xlabel(<span class="str">"SHAP value (impact)"</span>, fontsize=<span class="num">9</span>)
+        ax.tick_params(labelsize=<span class="num">8</span>)
+        fig.tight_layout()
+        st.pyplot(fig)
+
+    <span class="kw">with</span> col_right:
+        st.subheader(<span class="str">"🏷️ Extracted Entities"</span>)
+        entities = data[<span class="str">"entities"</span>]
+        entity_colors = {
+            <span class="str">"PETITIONER"</span>: <span class="str">"🔵"</span>, <span class="str">"RESPONDENT"</span>: <span class="str">"🟠"</span>,
+            <span class="str">"JUDGE"</span>: <span class="str">"🟣"</span>, <span class="str">"STATUTE"</span>: <span class="str">"🟤"</span>,
+            <span class="str">"SECTION"</span>: <span class="str">"⚫"</span>, <span class="str">"VERDICT"</span>: <span class="str">"🟢"</span>,
+            <span class="str">"DATE"</span>: <span class="str">"📅"</span>, <span class="str">"COURT"</span>: <span class="str">"🏛️"</span>,
+        }
+        <span class="kw">for</span> label, values <span class="kw">in</span> entities.items():
+            icon = entity_colors.get(label, <span class="str">"📌"</span>)
+            st.write(<span class="str">f"**{icon} {label}**"</span>)
+            <span class="kw">for</span> v <span class="kw">in</span> values[:3]:  <span class="cm"># show top 3 per entity</span>
+                st.caption(<span class="str">f"  → {v}"</span>)
+</pre>
+  </div>
+</section>
+
+<!-- ═══════ STEP 9 ═══════ -->
+<section class="step-section" id="s9">
+  <div class="step-header">
+    <div class="step-num-badge">09</div>
+    <div class="step-meta">
+      <p class="step-phase">Deployment</p>
+      <h2>Docker &amp; deployment</h2>
+    </div>
+  </div>
+
+  <h3>Dockerfile</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">dockerfile</span><span class="code-file">Dockerfile</span></div>
+<pre>
+<span class="kw">FROM</span> python:3.11-slim
+
+<span class="kw">WORKDIR</span> /app
+<span class="kw">COPY</span> requirements.txt .
+<span class="kw">RUN</span> pip install --no-cache-dir -r requirements.txt
+<span class="kw">RUN</span> python -m spacy download en_core_web_trf
+
+<span class="kw">COPY</span> . .
+<span class="kw">EXPOSE</span> 8000
+
+<span class="kw">CMD</span> ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+</pre>
+  </div>
+
+  <h3>docker-compose.yml</h3>
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">yaml</span><span class="code-file">docker-compose.yml</span></div>
+<pre>
+version: "3.9"
+services:
+  api:
+    build: .
+    ports: ["8000:8000"]
+    env_file: .env
+    volumes:
+      - ./models:/app/models
+    restart: unless-stopped
+
+  frontend:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes: [".:/app"]
+    environment:
+      - API_URL=http://api:8000
+    command: >
+      bash -c "pip install -q streamlit requests matplotlib &&
+               streamlit run app.py --server.port 8501 --server.address 0.0.0.0"
+    ports: ["8501:8501"]
+    depends_on: [api]
+    restart: unless-stopped
+</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-header"><span class="code-lang">bash</span><span class="code-file">terminal</span></div>
+<pre>
+<span class="cm"># Build and run everything</span>
+docker-compose up --build
+
+<span class="cm"># FastAPI docs available at:</span>
+<span class="cm"># http://localhost:8000/docs</span>
+
+<span class="cm"># Streamlit app available at:</span>
+<span class="cm"># http://localhost:8501</span>
+</pre>
+  </div>
+
+  <h3>Free deployment options</h3>
+  <div class="card-grid">
+    <div class="mini-card">
+      <p class="mc-label">Option A — zero cost</p>
+      <p class="mc-val">Streamlit Cloud + Render</p>
+      <p class="mc-sub">Push to GitHub → deploy Streamlit on streamlit.io (free). FastAPI on Render free tier. Total: $0/month</p>
+    </div>
+    <div class="mini-card">
+      <p class="mc-label">Option B — production</p>
+      <p class="mc-val">AWS EC2 + Pinecone</p>
+      <p class="mc-sub">t3.medium EC2 (~$30/month). Models on S3. Pinecone serverless free tier. ~$35/month total</p>
+    </div>
+    <div class="mini-card">
+      <p class="mc-label">Option C — demo only</p>
+      <p class="mc-val">Google Colab + ngrok</p>
+      <p class="mc-sub">Run FastAPI in Colab, expose via ngrok URL. Free, great for interviews and demos</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ STEP 10 ═══════ -->
+<section class="step-section" id="s10">
+  <div class="step-header">
+    <div class="step-num-badge">10</div>
+    <div class="step-meta">
+      <p class="step-phase">Evaluation</p>
+      <h2>Metrics to report on your resume</h2>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Module</th><th>Metric</th><th>How to measure</th><th>Target</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>NER (spaCy)</td>
+        <td>F1 per entity type</td>
+        <td><code>spacy evaluate models/legal_ner data/ner_test.spacy</code></td>
+        <td>F1 &gt; 0.80</td>
+      </tr>
+      <tr>
+        <td>Summarizer (BART)</td>
+        <td>ROUGE-1, ROUGE-L</td>
+        <td>HuggingFace <code>evaluate</code> library on test set</td>
+        <td>ROUGE-L &gt; 0.40</td>
+      </tr>
+      <tr>
+        <td>Outcome (XGBoost)</td>
+        <td>F1-macro, Accuracy</td>
+        <td>5-fold CV with <code>cross_val_score</code></td>
+        <td>F1-macro &gt; 0.65</td>
+      </tr>
+      <tr>
+        <td>RAG retrieval</td>
+        <td>Hit@5 (relevant case in top 5)</td>
+        <td>Manual eval on 50 queries with known ground truth</td>
+        <td>Hit@5 &gt; 0.75</td>
+      </tr>
+      <tr>
+        <td>End-to-end</td>
+        <td>API latency (p95)</td>
+        <td><code>locust</code> load test, 10 concurrent users</td>
+        <td>&lt; 8 seconds</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="info-box info-tip">
+    <strong>Resume bullet template</strong>
+    Built LexMind, a full-stack LegalTech AI system combining RAG (LangChain + Pinecone + InLegalBERT), BART summarization (ROUGE-L: 0.XX), XGBoost outcome prediction (F1: 0.XX) with SHAP explainability, and spaCy NER over 50k+ Indian court judgments — deployed as a FastAPI + Streamlit app via Docker.
+  </div>
+</section>
+
+<!-- ═══════ STEP 11 ═══════ -->
+<section class="step-section" id="s11">
+  <div class="step-header">
+    <div class="step-num-badge">11</div>
+    <div class="step-meta">
+      <p class="step-phase">Done!</p>
+      <h2>Final build checklist</h2>
+    </div>
+  </div>
+
+  <ul class="checklist">
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>Datasets downloaded</strong> — ILSI, LegalSum, Indian NER, CUAD from HuggingFace + Indian Kanoon API</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>Preprocessing pipeline</strong> — cleaned text, extracted labels, chunked for RAG</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>spaCy NER trained</strong> — 10 legal entity types, evaluated with F1 per label</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>BART fine-tuned</strong> — judgment → headnote, ROUGE-L measured and noted</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>XGBoost trained</strong> — 5-fold CV F1, SHAP summary plot saved, inference function ready</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>Corpus embedded</strong> — 50k+ chunks in Pinecone with court/year metadata filters</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>RAG chain built</strong> — InLegalBERT embeddings, MMR retrieval, LangChain + Claude LLM</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>FastAPI running</strong> — /analyze endpoint, all 4 models called, unified JSON response</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>Streamlit UI live</strong> — 3-column layout, SHAP waterfall chart, entity badges, precedent expanders</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>Dockerized &amp; deployed</strong> — docker-compose up, accessible URL for demo</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>README written</strong> — with architecture diagram, setup instructions, and evaluation metrics</span></li>
+    <li><span class="check-icon">✓</span><span class="check-text"><strong>GitHub pushed</strong> — github.com/maviyaskh25/lexmind — linked in resume and LinkedIn</span></li>
+  </ul>
+</section>
+
+<footer>
+  <span>LexMind — Complete Build Guide</span>
+  <span>ML · DL · NLP · RAG · LegalTech</span>
+  <span>github.com/maviyaskh25</span>
+</footer>
+
+</body>
+</html>
